@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import InputReader from "./inputReader";
+import Sider from "./sidebar";
+import type { MenuProps } from "antd";
+import { Card, Layout, Menu, theme } from "antd";
+import "./App.css";
+import React from "react";
 
-function App() {
+const { Header, Content } = Layout;
+
+const years: MenuProps["items"] = ["2021", "2022", "2023"].map((key) => ({
+  key,
+  label: key,
+}));
+
+const App: React.FC = () => {
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Layout>
+      <Header style={{ display: "flex", alignItems: "center" }}>
+        <Menu theme="dark" mode="horizontal" items={years} />
+      </Header>
+      <Layout>
+        <Sider />
+        <Content
+          style={{
+            padding: 24,
+            margin: 0,
+            minHeight: 280,
+            background: colorBgContainer,
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Card>
+            <InputReader />
+          </Card>
+        </Content>
+      </Layout>
+    </Layout>
   );
-}
+};
 
 export default App;
